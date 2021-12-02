@@ -34,14 +34,15 @@ const clearButtonListener = function () {
 
 const operationListener = function (operation) {
   const lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
-
+  console.log("\"" + lastChar + "\"")
+  console.log(result.innerHTML.length);
   if (!operations.has(lastChar)) {
     result.innerHTML = result.innerHTML + operation;
   }
 };
 
 const equalButtonListener = function () {
-  console.log("you did it!");
+  
 };
 
 clear.addEventListener("click", clearButtonListener);
