@@ -1,5 +1,5 @@
 result = document.getElementById("viewer");
-numbers = document.getElementsByClassName("num");
+numberButtons = document.getElementsByClassName("num");
 clear = document.getElementById("clear");
 plus = document.getElementById("plus");
 minus = document.getElementById("minus");
@@ -24,8 +24,8 @@ const numberClickedListener = function () {
   }
 };
 
-for (i = 0; i < numbers.length; i++) {
-  numbers[i].addEventListener("click", numberClickedListener);
+for (i = 0; i < numberButtons.length; i++) {
+  numberButtons[i].addEventListener("click", numberClickedListener);
 }
 
 const clearButtonListener = function () {
@@ -34,14 +34,15 @@ const clearButtonListener = function () {
 
 const operationListener = function (operation) {
   const lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
-  console.log("\"" + lastChar + "\"")
-  console.log(result.innerHTML.length);
   if (!operations.has(lastChar)) {
     result.innerHTML = result.innerHTML + operation;
   }
 };
-
 const equalButtonListener = function () {
+  let equationResult = 0;
+  let numbers= result.innerHTML.split("+");
+  numbers.forEach(number => equationResult = equationResult + parseFloat(number));
+  result.innerHTML = equationResult;
   
 };
 
@@ -52,3 +53,5 @@ division.addEventListener("click", () => operationListener("/"));
 multiplication.addEventListener("click", () => operationListener("*"));
 dot.addEventListener("click", () => operationListener("."));
 equal.addEventListener("click", equalButtonListener);
+
+
