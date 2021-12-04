@@ -18,9 +18,9 @@ operations.add(".");
 const numberClickedListener = function () {
   const number = this.getAttribute("data-num");
   if (result.innerHTML === "0") {
-    result.innerHTML = number;
+    result.innerHTML = Number(number);
   } else {
-    result.innerHTML = result.innerHTML + number;
+    result.innerHTML = result.innerHTML + Number(number);
   }
 };
 
@@ -38,12 +38,9 @@ const operationListener = function (operation) {
     result.innerHTML = result.innerHTML + operation;
   }
 };
-const equalButtonListener = function () {
-  let equationResult = 0;
-  let numbers= result.innerHTML.split("+");
-  numbers.forEach(number => equationResult = equationResult + parseFloat(number));
-  result.innerHTML = equationResult;
-  
+
+const equationButtonListener = function () {
+  result.innerHTML = eval(result.innerHTML);
 };
 
 clear.addEventListener("click", clearButtonListener);
@@ -52,6 +49,4 @@ minus.addEventListener("click", () => operationListener("-"));
 division.addEventListener("click", () => operationListener("/"));
 multiplication.addEventListener("click", () => operationListener("*"));
 dot.addEventListener("click", () => operationListener("."));
-equal.addEventListener("click", equalButtonListener);
-
-
+equal.addEventListener("click", equationButtonListener);
