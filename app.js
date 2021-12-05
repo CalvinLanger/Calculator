@@ -1,3 +1,4 @@
+//Variables
 result = document.getElementById("viewer");
 numberButtons = document.getElementsByClassName("num");
 clear = document.getElementById("clear");
@@ -7,6 +8,8 @@ multiplication = document.getElementById("multiplication");
 division = document.getElementById("division");
 dot = document.getElementById("dot");
 equal = document.getElementById("equals");
+resetAll = document.getElementById("reset");
+lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
 
 const operations = new Set();
 operations.add("+");
@@ -15,12 +18,13 @@ operations.add("*");
 operations.add("/");
 operations.add(".");
 
+//Number chooser
 const numberClickedListener = function () {
   const number = this.getAttribute("data-num");
   if (result.innerHTML === "0") {
-    result.innerHTML = Number(number);
+    result.innerHTML = number;
   } else {
-    result.innerHTML = result.innerHTML + Number(number);
+    result.innerHTML = result.innerHTML + number;
   }
 };
 
@@ -28,17 +32,26 @@ for (i = 0; i < numberButtons.length; i++) {
   numberButtons[i].addEventListener("click", numberClickedListener);
 }
 
-const clearButtonListener = function () {
-  result.innerHTML = 0;
-};
-
 const operationListener = function (operation) {
-  const lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
+  lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
   if (!operations.has(lastChar)) {
     result.innerHTML = result.innerHTML + operation;
   }
 };
 
+//Delete last character from string
+const clearButtonListener = function () {
+  result.innerHTML = result.innerHTML.slice(0, -1);
+  if (result.innerHTML == "") {
+    result.innerHTML = 0;
+  }
+};
+
+const resetAllButtonListener = function () {
+  result.innerHTML = 0;
+};
+
+//String to Number and compute equation
 const equationButtonListener = function () {
   result.innerHTML = eval(result.innerHTML);
 };
@@ -50,3 +63,4 @@ division.addEventListener("click", () => operationListener("/"));
 multiplication.addEventListener("click", () => operationListener("*"));
 dot.addEventListener("click", () => operationListener("."));
 equal.addEventListener("click", equationButtonListener);
+resetAll.addEventListener("click", resetAllButtonListener);
