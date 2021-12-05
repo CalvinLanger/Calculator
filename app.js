@@ -32,23 +32,20 @@ for (i = 0; i < numberButtons.length; i++) {
   numberButtons[i].addEventListener("click", numberClickedListener);
 }
 
+//Add operator to the end of string in result or change last operator
 const operationListener = function (operation) {
   lastChar = result.innerHTML.charAt(result.innerHTML.length - 1);
   if (!operations.has(lastChar)) {
     result.innerHTML = result.innerHTML + operation;
-  }
+  } else {
+    result.innerHTML = result.innerHTML.slice(0, -1);
+    result.innerHTML = result.innerHTML + operation;
+  };
 };
 
-//Delete last character from string
+//Delete last character from string in result
 const clearButtonListener = function () {
-  result.innerHTML = result.innerHTML.slice(0, -1);
-  if (result.innerHTML == "") {
     result.innerHTML = 0;
-  }
-};
-
-const resetAllButtonListener = function () {
-  result.innerHTML = 0;
 };
 
 //String to Number and compute equation
@@ -63,4 +60,3 @@ division.addEventListener("click", () => operationListener("/"));
 multiplication.addEventListener("click", () => operationListener("*"));
 dot.addEventListener("click", () => operationListener("."));
 equal.addEventListener("click", equationButtonListener);
-resetAll.addEventListener("click", resetAllButtonListener);
